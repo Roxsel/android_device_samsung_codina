@@ -69,15 +69,11 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
     $(LOCAL_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
-    $(LOCAL_PATH)/configs/Volume.db:system/etc/Volume.db
-
-# Media configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml
 
 PRODUCT_PACKAGES += \
-    libomxil-bellagio
+    libomxil-bellagio 
 
 # Dbus
 PRODUCT_COPY_FILES += \
@@ -88,16 +84,12 @@ $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
 # Graphics
 PRODUCT_PACKAGES += \
-    libblt_hw
+    libblt_hw 
 
 # Charger
 PRODUCT_PACKAGES += \
     charger \
     charger_res_images
-
-# Keylayout configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/codina-kp.kl:system/usr/keylayout/codina-kp.kl
 
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
