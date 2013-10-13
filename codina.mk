@@ -19,10 +19,12 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += \
-    lights.montblanc \
-    com.android.future.usb.accessory \
-    SamsungServiceMode
+    GalaxyAce2Settings \
+    CMAccount \
+    libasound \
+    lights.montblanc
 
+# Filesystem management tools
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
@@ -49,6 +51,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.samsungcodina:root/fstab.samsungcodina \
     $(LOCAL_PATH)/rootdir/init.samsungcodina.rc:root/init.samsungcodina.rc \
+    $(LOCAL_PATH)/rootdir/init.samsungcodina.usb.rc:root/init.samsungcodina.usb.rc \
     $(LOCAL_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
     $(LOCAL_PATH)/rootdir/ueventd.samsungcodina.rc:root/ueventd.samsungcodina.rc \
     $(LOCAL_PATH)/rootdir/recovery.rc:root/init.recovery.codina.rc
@@ -59,19 +62,26 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
+
+PRODUCT_PACKAGES += \
+    libomxil-bellagio 
 
 # Dbus
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/dbus.conf:system/etc/dbus.conf
 
 # Gps
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
+
 $(call inherit-product, device/common/gps/gps_eu_supl.mk)
 
-# Charger
+# Graphics
 PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images
+    libblt_hw 
 
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
