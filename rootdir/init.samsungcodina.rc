@@ -7,7 +7,6 @@ on early-init
     mkdir /storage 0775 system system
     mkdir /storage/sdcard0 0775 system system
     mkdir /storage/sdcard1 0775 system system
-    mkdir /storage/usbdisk0 0775 system system
     mkdir /efs 0771 radio system
     mkdir /modemfs 0771 system system
     mkdir /preload 0771 system system
@@ -19,8 +18,11 @@ on early-init
     symlink /storage/sdcard0 /mnt/sdcard
     symlink /storage/sdcard1 /extSdCard
     symlink /storage/sdcard1 /mnt/extSdCard
-    symlink /storage/usbdisk0 /usbdisk0
-    symlink /storage/usbdisk0 /mnt/usbdisk0
+    
+    # KSM tunning
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
 
 on init
 
@@ -30,6 +32,12 @@ on init
     export OMX_STE_ENS_COMPONENTS_DIR /system/lib/ste_omxcomponents/
     export OMX_BELLAGIO_LOADER_REGISTRY /system/etc/omxloaders
     export OMX_STE_CSCALL_COMPONENTS_DIR /system/lib/ste_omxcomponents/
+<<<<<<< HEAD
+=======
+    
+    # Add this so modem-supervisor find property_get
+    export LD_PRELOAD /system/lib/libcutils.so
+>>>>>>> upstream/cm-10.2
 
     # Vibetonz
     export VIBE_PIPE_PATH /dev/pipes
@@ -47,17 +55,15 @@ on init
     mkdir /debug
     mount debugfs none /debug
 
+    # Prevents permission denied error for telephony
+    chmod 0644 /proc/cmdline
 
 on fs
 
     mount_all /fstab.samsungcodina
     setprop ro.crypto.fuse_sdcard false
-	
-    # Start CSPSA before synchronously running the factory reset utility that
-    # checks the factory reset triggers in sysfs and CSPSA and then formats
-    # the block device belonging to /data.
+
     start cspsa
-    #exec /system/bin/logwrapper /system/bin/factoryreset -f /sys/socinfo/reset_reason -r factory-reset -c CSPSA0 -p 0xfffffffc:31 /dev/block/mmcblk0p5
 
 on post-fs
 
@@ -114,13 +120,7 @@ on post-fs
     chown system radio /sys/class/sec/tsp_noise_test/disp_all_deltadata
     chown system system /sys/class/sec/sec_touchscreen/tsp_threshold
 
-    # DVFS LOCK
-    chown radio system /sys/power/cpufreq_table
-    chown radio system /sys/power/cpufreq_max_limit
-    chown radio system /sys/power/cpufreq_min_limit
-    chmod 0660 /sys/power/cpufreq_table
-    chmod 0660 /sys/power/cpufreq_max_limit
-    chmod 0660 /sys/power/cpufreq_min_limit
+    # PRCMU debug fs
     chown radio system /debug/prcmu/ape_opp
     chown radio system /debug/prcmu/ddr_opp
     chmod 0660 /debug/prcmu/ape_opp
@@ -259,7 +259,6 @@ on post-fs-data
 #]
 
     # create basic filesystem structure
-    mkdir /data/misc/psdata
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/bluetooth 0770 system system
 
@@ -271,28 +270,6 @@ on post-fs-data
     # Create directory for STE OMX debug logs
     mkdir /data/ste-debug 0775 system system
 
-    # give system access to sterc_script when enabling usb nap
-    copy -u /system/etc/psdata/sterc_conf /data/misc/psdata/sterc_conf
-    copy -u /system/etc/psdata/sterc_script_connect /data/misc/psdata/sterc_script_connect
-    copy -u /system/etc/psdata/sterc_script_disconnect /data/misc/psdata/sterc_script_disconnect
-    copy -u /system/etc/psdata/sterc_conf_alt /data/misc/psdata/sterc_conf_alt
-    copy -u /system/etc/psdata/sterc_script_connect_alt /data/misc/psdata/sterc_script_connect_alt
-    copy -u /system/etc/psdata/sterc_script_connect_dun /data/misc/psdata/sterc_script_connect_dun
-    copy -u /system/etc/psdata/sterc_script_disconnect_dun /data/misc/psdata/sterc_script_disconnect_dun
-    chmod 0660 /data/misc/psdata/sterc_conf
-    chmod 0500 /data/misc/psdata/sterc_script_connect
-    chmod 0500 /data/misc/psdata/sterc_script_disconnect
-    chmod 0660 /data/misc/psdata/sterc_conf_alt
-    chmod 0500 /data/misc/psdata/sterc_script_connect_alt
-    chmod 0500 /data/misc/psdata/sterc_script_connect_dun
-    chmod 0500 /data/misc/psdata/sterc_script_disconnect_dun
-    chown root radio /data/misc/psdata/sterc_conf
-    chown root radio /data/misc/psdata/sterc_conf_alt
-
-    # give system access to stepscc_conf
-    copy -u /system/etc/psdata/stepscc_conf /data/misc/psdata/stepscc_conf
-    chmod 0660 /data/misc/psdata/stepscc_conf
-    chown root radio /data/misc/psdata/stepscc_conf
 
     # create var/run, var/lib for avahi
     mkdir /var
@@ -382,34 +359,29 @@ on boot
 
 # Peremissions for bluetooth
     # UART device
-    chown bluetooth bluetooth /dev/ttyAMA0
+    chown bluetooth net_bt_stack /dev/ttyAMA0
     chmod 0660 /dev/ttyAMA0
 
 # for bluetooth. change access rights as btld runs as bluetooth user
-    chown root bluetooth /sys/class/rfkill/rfkill0
-    chown root bluetooth /sys/class/rfkill/rfkill0/state
-    chown root bluetooth /sys/class/rfkill/rfkill0/claim	
-    chown root bluetooth /sys/class/rfkill/rfkill0/soft
-    chown root bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/claim	
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/soft
     chmod 0664 /sys/class/rfkill/rfkill0/state
     chmod 0664 /sys/class/rfkill/rfkill0/claim
     chmod 0664 /sys/class/rfkill/rfkill0/soft
-    chmod 0664 /sys/class/rfkill/rfkill0/type
     setprop service.brcm.bt.pbap_mode btld
 
 # power up/down interface
+    chmod 0660 /sys/class/rfkill/rfkill0/type
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    chown bluetooth bluetooth /sts/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
 
 # bluetooth MAC address programming
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
     chown bluetooth bluetooth /system/etc/bt_addr
     chmod 0644 /efs/bluetooth/addr.txt
-
-    chown bluetooth /dev/ttyAMA0
-    chmod 0660 /dev/ttyAMA0
 
     # Permissions for LCD
     chown system system /sys/class/backlight/panel/brightness
@@ -441,6 +413,10 @@ on boot
     chown system system /sys/kernel/abb-charger/max_ac_c
     chown system system /sys/kernel/abb-charger/max_usb_c
     chown system system /sys/kernel/fsync/mode
+<<<<<<< HEAD
+=======
+    chown system system /sys/kernel/bt404/sweep2wake
+>>>>>>> upstream/cm-10.2
     chown system system /sys/module/mmc_core/parameters/use_spi_crc
 
     # camera debug
@@ -499,19 +475,9 @@ service modem /system/bin/sh /system/etc/ste_modem.sh
     class modem-u8500
     user root
 
-# Modem-supervisor
-service modem-supervisor /system/bin/modem-supervisor -f /dev/dbx500_mloader_fw -i /sys/devices/platform/ab8500-i2c.0/chip_id -c monitor
-    class modem-u8500
-    user root
-
 # Creating Modem Security daemon
 service copsd /system/bin/copsdaemon
     class modem-core
-    user root
-
-# Modem_log_relay
-service modem_log_relay /system/bin/modem_log_relay --ctrl_port=2001 --data_port=2002 --inv_port=2003 --report_port=2005
-    class modem
     user root
 
 service admsrv /system/bin/admsrv
@@ -521,14 +487,17 @@ service admsrv /system/bin/admsrv
     ioprio rt 4
     capability NET_ADMIN NET_RAW SYS_NICE
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/cm-10.2
 service geomagneticd /system/bin/geomagneticd6x
     user compass
     group system input
 
 service orientationd /system/bin/orientationd6x
     user compass
-    group system input group system input
+    group system input
 
 # AT daemon
 service atd /system/bin/at_core -mode normal -serial ttyAMA2
@@ -606,8 +575,8 @@ service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     class main
     disabled
     oneshot
-
-service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+    
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
@@ -621,8 +590,8 @@ service iprenew_p2p /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
-
-service iprenew_bnep0 /system/bin/dhcpcd -n
+    
+service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
     oneshot

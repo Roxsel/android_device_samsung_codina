@@ -16,6 +16,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
+<<<<<<< HEAD
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PACKAGES += \
@@ -46,15 +47,19 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
+=======
+PRODUCT_PACKAGES += \
+    GalaxyAce2Settings \
+    CMAccount
+>>>>>>> upstream/cm-10.2
 
 # Init files
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/fstab.samsungcodina:root/fstab.samsungcodina \
+    $(LOCAL_PATH)/rootdir/init.recovery.samsungcodina.rc:root/init.recovery.samsungcodina.rc \
     $(LOCAL_PATH)/rootdir/init.samsungcodina.rc:root/init.samsungcodina.rc \
     $(LOCAL_PATH)/rootdir/init.samsungcodina.usb.rc:root/init.samsungcodina.usb.rc \
-    $(LOCAL_PATH)/rootdir/prerecovery.rc:root/prerecovery.rc \
-    $(LOCAL_PATH)/rootdir/ueventd.samsungcodina.rc:root/ueventd.samsungcodina.rc \
-    $(LOCAL_PATH)/rootdir/recovery.rc:root/init.recovery.codina.rc
+    $(LOCAL_PATH)/rootdir/ueventd.samsungcodina.rc:root/ueventd.samsungcodina.rc
     
 # STE
 PRODUCT_COPY_FILES += \
@@ -62,18 +67,16 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/asound.conf:system/etc/asound.conf \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/audio_policy.conf:system/vendor/etc/audio_policy.conf \
-    $(LOCAL_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500 \
-
-PRODUCT_PACKAGES += \
-    libomxil-bellagio 
-
+    $(LOCAL_PATH)/configs/adm.sqlite-u8500:system/etc/adm.sqlite-u8500
+    
 # Dbus
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/dbus.conf:system/etc/dbus.conf
 
 # Gps
+<<<<<<< HEAD
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
 
@@ -84,8 +87,14 @@ PRODUCT_PACKAGES += \
     libblt_hw 
 
 # Bluetooth configuration files
+=======
+>>>>>>> upstream/cm-10.2
 PRODUCT_COPY_FILES += \
-    system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
+    $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf
 
-
-$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
+# Storage switch script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/SwapStorages.sh:system/xbin/SwapStorages.sh
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vold.switchablepair=/storage/sdcard0,/storage/sdcard1 \
+    persist.sys.vold.switchexternal=0

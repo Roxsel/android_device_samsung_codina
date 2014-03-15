@@ -2,6 +2,7 @@
 
 TARGET_OTA_ASSERT_DEVICE := codina,i8160,GT-I8160
 
+<<<<<<< HEAD
 # Board
 TARGET_BOOTLOADER_BOARD_NAME := montblanc
 TARGET_NO_BOOTLOADER := true
@@ -24,9 +25,12 @@ TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_RECOVERY_INITRC := device/samsung/codina/rootdir/recovery.rc
 
+=======
+>>>>>>> upstream/cm-10.2
 # Kernel
-TARGET_KERNEL_SOURCE := kernel/samsung/codina
+TARGET_KERNEL_SOURCE := kernel/samsung/u8500
 TARGET_KERNEL_CONFIG := cyanogenmod_i8160_defconfig
+<<<<<<< HEAD
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := "console=ttySAC2,115200 consoleblank=0"
@@ -45,41 +49,14 @@ BOARD_EGL_CFG := device/samsung/codina/configs/egl.cfg
 BOARD_EGL_NEEDS_LEGACY_FB := true
 # TARGET_DISABLE_TRIPLE_BUFFERING := true
 COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60
+=======
+>>>>>>> upstream/cm-10.2
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/codina/bluetooth
 
-# Wifi
-BOARD_WLAN_DEVICE := bcmdhd
-BOARD_WLAN_DEVICE_REV := bcm4330
-WPA_SUPPLICANT_VERSION := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA := "/system/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_FW_PATH_AP := "/system/etc/wifi/bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P := "/system/etc/wifi/bcmdhd_p2p.bin"
-WIFI_DRIVER_MODULE_NAME := "dhd"
-WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_AP_ARG := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_BAND := 802_11_ABG
-BOARD_LEGACY_NL80211_STA_EVENTS := true
-BOARD_NO_APSME_ATTR := true
-
-# Audio
-BOARD_HAS_MR0_STE_AUDIO := true
-MR0_AUDIO_BLOB := true
-BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun0/file"
-
-# Vold
-BOARD_VOLD_MAX_PARTITIONS := 25
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
-BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
-
 # Recovery
+<<<<<<< HEAD
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/codina/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/codina/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/codina/rootdir/recovery.rc
@@ -106,3 +83,11 @@ BOARD_USES_MFC_FPS := true
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
 BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true
+=======
+TARGET_RECOVERY_FSTAB := device/samsung/codina/rootdir/fstab.samsungcodina
+
+# Boot Animation
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_USE_RGB565 := true
+>>>>>>> upstream/cm-10.2

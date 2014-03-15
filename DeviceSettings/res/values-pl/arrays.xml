@@ -2,24 +2,17 @@
 
     <string-array name="mali_l2_mr_entries">
         <item>28kb (stock)</item>
-        <item>48kb (default)</item>
+        <item>48kb (domyślne)</item>
     </string-array>
     <string-array name="mali_l2_mr_entries_values" translatable="false">
         <item>28</item>
         <item>48</item>
     </string-array>
     <string-array name="mali_pam_entries">
-<<<<<<< HEAD
-        <item>16mb</item>
-        <item>24mb</item>
-        <item>32mb</item>
-        <item>48mb</item>
-=======
         <item>16MB</item>
         <item>24MB</item>
         <item>32MB</item>
         <item>48MB</item>
->>>>>>> upstream/cm-10.2
     </string-array>
     <string-array name="mali_pam_entries_values" translatable="false">
         <item>16777216</item>
@@ -28,9 +21,9 @@
         <item>50331648</item>
     </string-array>
     <string-array name="fsync_mode_entries">
-        <item>Enabled (default)</item>
-        <item>Disabled</item>
-        <item>Dynamic</item>
+        <item>Włączony (domyślnie)</item>
+        <item>Wyłączony</item>
+        <item>Dynamiczny</item>
     </string-array>
     <string-array name="fsync_mode_entries_values" translatable="false">
         <item>0</item>
@@ -38,15 +31,9 @@
         <item>2</item>
     </string-array>
     <string-array name="cc_currency_usb_entries">
-<<<<<<< HEAD
-        <item>800 mAh *WARNING*</item>
-        <item>600 mAh (fast charge)</item>
-        <item>400 mAh</item>
-=======
-        <item>800 mA *WARNING*</item>
-        <item>600 mA (fast charge)</item>
+        <item>800 mA *UWAGA!*</item>
+        <item>600 mA (szybkie ładowanie)</item>
         <item>400 mA</item>
->>>>>>> upstream/cm-10.2
     </string-array>
     <string-array name="cc_currency_usb_entries_values" translatable="false">
         <item>800</item>
@@ -54,9 +41,9 @@
         <item>400</item>
     </string-array>
     <string-array name="deepest_sleep_states_entries">
-        <item>State 5</item>
-        <item>State 4</item>
-        <item>State 3 (default)</item>
+        <item>Stan 5</item>
+        <item>Stan 4</item>
+        <item>Stan 3 (domyślnie)</item>
     </string-array>
     <string-array name="deepest_sleep_states_entries_values" translatable="false">
         <item>5</item>
@@ -64,15 +51,9 @@
         <item>3</item>
     </string-array>
     <string-array name="cc_currency_charger_entries">
-<<<<<<< HEAD
-        <item>800 mAh   *WARNING*</item>
-        <item>600 mAh (default)</item>
-        <item>400 mAh</item>
-=======
-        <item>800 mA   *WARNING*</item>
-        <item>600 mA (default)</item>
+        <item>800 mA *UWAGA!*</item>
+        <item>600 mA (domyślnie)</item>
         <item>400 mA</item>
->>>>>>> upstream/cm-10.2
     </string-array>
     <string-array name="cc_currency_charger_entries_values" translatable="false">
         <item>800</item>
@@ -80,8 +61,8 @@
         <item>400</item>
     </string-array>
     <string-array name="hspa_entries">
-        <item>UMTS Only</item>
-        <item>HSDPA Only</item>
+        <item>Tylko UMTS</item>
+        <item>Tylko HSDPA</item>
         <item>HSDPA + HSUPA</item>
     </string-array>
     <string-array name="hspa_entries_values" translatable="false">

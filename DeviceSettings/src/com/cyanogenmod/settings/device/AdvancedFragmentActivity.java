@@ -21,17 +21,31 @@ import com.cyanogenmod.settings.device.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.os.SystemProperties;
+>>>>>>> upstream/cm-10.2
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+import java.lang.Runtime;
+import java.io.IOException;
+>>>>>>> upstream/cm-10.2
 
 public class AdvancedFragmentActivity extends PreferenceFragment {
 
 	private static final String TAG = "GalaxyAce2_Settings_Advanced";
 
+<<<<<<< HEAD
+=======
+	public static final String FILE_SWEEP2WAKE = "/sys/kernel/bt404/sweep2wake";
+
+>>>>>>> upstream/cm-10.2
 	public static final String FILE_SPI_CRC = "/sys/module/mmc_core/parameters/use_spi_crc";
 
 	@Override
@@ -58,6 +72,30 @@ public class AdvancedFragmentActivity extends PreferenceFragment {
 			Utils.writeValue(FILE_SPI_CRC, boxValue);
 		}
 
+<<<<<<< HEAD
+=======
+		if (key.equals(DeviceSettings.KEY_SWITCH_STORAGE)) {
+			boolean b = ((CheckBoxPreference) preference).isChecked();
+			String cmd = "SwapStorages.sh " + (b?"1":"0");
+
+			try {
+			    Process proc = Runtime.getRuntime().exec(new String[]{"su","-c",cmd});
+			    proc.waitFor();
+			} catch (IOException e) {
+			    e.printStackTrace();
+			} catch (InterruptedException e) {
+			    e.printStackTrace();
+			}
+		}
+
+		if (key.equals(DeviceSettings.KEY_USE_SWEEP2WAKE)) {
+			boxValue = (((CheckBoxPreference) preference).isChecked() ? "on"
+					: "off");
+			Utils.writeValue(FILE_SWEEP2WAKE, boxValue);
+
+		}
+
+>>>>>>> upstream/cm-10.2
 		return true;
 	}
 
@@ -65,9 +103,25 @@ public class AdvancedFragmentActivity extends PreferenceFragment {
 		SharedPreferences sharedPrefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
+<<<<<<< HEAD
 		String value = sharedPrefs.getBoolean(DeviceSettings.KEY_USE_SPI_CRC,
 				false) ? "0" : "1";
 		Utils.writeValue(FILE_SPI_CRC, value);
+=======
+		String crcvalue = sharedPrefs.getBoolean(DeviceSettings.KEY_USE_SPI_CRC,
+				false) ? "0" : "1";
+		Utils.writeValue(FILE_SPI_CRC, crcvalue);
+	
+		int sstor = SystemProperties.getInt("persist.sys.vold.switchexternal", 0) ;
+		SharedPreferences.Editor editor = sharedPrefs.edit();
+		editor.putBoolean(DeviceSettings.KEY_SWITCH_STORAGE,sstor==1?true:false);
+		editor.commit();
+
+		String s2wvalue = sharedPrefs.getBoolean(
+				DeviceSettings.KEY_USE_SWEEP2WAKE, false) ? "on" : "off";
+		Utils.writeValue(FILE_SWEEP2WAKE, s2wvalue);
+
+>>>>>>> upstream/cm-10.2
 	}
 
 }

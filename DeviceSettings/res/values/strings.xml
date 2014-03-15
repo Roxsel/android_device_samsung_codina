@@ -22,7 +22,11 @@
     <string name="accelerometer_dialog_message">The sensor has been successfully calibrated.</string>
 
     <!-- TAB: USB -->
+<<<<<<< HEAD
     <string name="category_usb_title">Usb</string>
+=======
+    <string name="category_usb_title">USB</string>
+>>>>>>> upstream/cm-10.2
 
     <!-- CATEGORY: USB OTG Settings -->
     <string name="otg_subcat_title">USB OTG Settings</string>
@@ -40,7 +44,11 @@
     <string name="deepsleep_subcat_title">Deep Sleep</string>
     <string name="deepest_sleep_title_head">Deepest sleep state</string>
     <string name="deepest_sleep_summary_head">Specify the highest deep sleep level</string>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upstream/cm-10.2
     <!-- TAB: ADVANCED -->
     <string name="category_advanced_title">Advanced</string>
 
@@ -55,10 +63,28 @@
     <string name="mali_l2_mr_summary_head">Increasing it may improve graphics performance.</string>
     <string name="mali_pam_title_head">Mali Pre-allocated memory size</string>
     <string name="mali_pam_summary_head">Increasing it may improve graphics performance.</string>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upstream/cm-10.2
     <!-- CATEGORY: MMC -->
     <string name="mmc_subcat_title">MMC</string>
     <string name="use_spi_crc_title_head">Disable SPI CRC</string>
     <string name="use_spi_crc_summary_head">Disabling SPI CRC can improve mmc performance (10% - 30%) but phone may freeze randomly</string>
+<<<<<<< HEAD
     
+=======
+
+    <!-- CATEGORY: STORAGE -->
+    <string name="storage_subcat_title">Storage</string>
+    <string name="switch_storage_title_head">Swap Storages</string>
+    <string name="switch_storage_summary_head">Switches internal storage partition with external sd-card. Reboot required.</string>
+
+    <!-- CATEGORY: TouchScreen -->
+    <string name="touchscreen_subcat_title">Touchscreen</string>
+    <string name="use_sweep2wake_title_head">Sweep2Wake</string>
+    <string name="use_sweep2wake_summary_head">Unlock device with a swype</string>
+
+>>>>>>> upstream/cm-10.2
 </resources>

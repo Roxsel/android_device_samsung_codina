@@ -27,6 +27,7 @@
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">false</bool>
 
+<<<<<<< HEAD
     <!-- This string array should be overridden by the device to present a list of network
          attributes.  This is used by the connectivity manager to decide which networks can coexist
          based on the hardware -->
@@ -112,4 +113,6 @@
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
 
+=======
+>>>>>>> upstream/cm-10.2
 </resources>
